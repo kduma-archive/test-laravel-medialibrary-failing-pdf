@@ -22,6 +22,11 @@ class ExampleTest extends TestCase
             ->preservingOriginal()
             ->toMediaCollection();
 
-        $this->assertNotNull($user->getFirstMediaUrl(conversionName: 'preview'));
+        $path = $user->getFirstMediaPath(conversionName: 'preview');
+
+        [$width, $height] = getimagesize($path);
+
+        $this->assertEquals(300, $width, 'The width of the conversion is not 300px.');
+        $this->assertEquals(300, $height, 'The height of the conversion is not 300px.');
     }
 }
